@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío 4 - Inmobiliaria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <nav>
+        <section>
+            <div>
+                <p>Cantidad de cuartos:</p>
+                <input id="cantidadCuartosInput" min="0" class="form-control w-50 m-auto" type="number">
+            </div>
+            <div>
+                <span>Metros cuadrados</span>
+                <div class="d-flex">
+                    <div class="me-4">
+                        <p>desde:</p>
+                        <input id="metrosDesdeInput" min="0" class="form-control" type="number">
+                    </div>
+                    <div>
+                        <p>hasta:</p>
+                        <input id="metrosHastaInput" min="0" class="form-control" type="number">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <button id="miBoton" class="btn btn-warning">Buscar</button>
+        <button id="resetButton" class="btn btn-secondary">Reiniciar</button>
+
+    </nav>
+
+    <section id="Propiedades">
+        <h4 class="py-3">Total: <span id="totalPropiedades">6</span></h4>
+        <div class="propiedades">
+            <!-- Las propiedades van aquí -->
+                <div class="propiedad">
+                    <div class="img"
+                        style="background-image: url('https://i.pinimg.com/originals/76/ac/20/76ac20901832bee4ce5770399a9fe07b.jpg')">
+                    </div>
+                    <section>
+                        <h5>Casa en el campo</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Cuartos: 2</p>
+                            <p>Metros: 170</p>
+                        </div>
+                        <p class="my-3">Un lugar ideal para descansar</p>
+                        <button class="btn btn-info ">Ver más</button>
+                    </section>
+                </div>
+
+                <div class="propiedad">
+                    <div class="img"
+                        style="background-image: url('https://www.arqhys.com/wp-content/fotos/2012/11/Exteriores-de-casas-de-playa.jpg')">
+                    </div>
+                    <section>
+                        <h5>Casa de playa</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Cuartos: 2</p>
+                            <p>Metros: 130</p>
+                        </div>
+                        <p class="my-3">Despierta y vive tus vacaciones cerca del oceano</p>
+                        <button class="btn btn-info ">Ver más</button>
+                    </section>
+                </div>
+
+                <div class="propiedad">
+                    <div class="img"
+                        style="background-image: url('https://www.barcelonaenhorasdeoficina.com/wp-content/uploads/2016/10/DSC00685_edited.jpg')">
+                    </div>
+                    <section>
+                        <h5>Casa en el centro</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Cuartos: 1</p>
+                            <p>Metros: 80</p>
+                        </div>
+                        <p class="my-3">Ten cerca de ti la ciudad y lo que necesitas</p>
+                        <button class="btn btn-info ">Ver más</button>
+                    </section>
+                </div>
+
+                <div class="propiedad">
+                    <div class="img"
+                        style="background-image: url('https://image.jimcdn.com/app/cms/image/transf/none/path/sec66f8b952d41c14/image/ie9d4170750d52809/version/1598902819/image.jpg')">
+                    </div>
+                    <section>
+                        <h5>Casa rodante</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Cuartos: 1</p>
+                            <p>Metros: 6</p>
+                        </div>
+                        <p class="my-3">Disfruta de un viaje en carretera llevando tu hogar sobre ruedas</p>
+                        <button class="btn btn-info ">Ver más</button>
+                    </section>
+                </div>
+
+                <div class="propiedad">
+                    <div class="img"
+                        style="background-image: url('https://cdn.newsapi.com.au/image/v1/0fd3b227fb0185e77cd10dd4adaa1c09?width=650')">
+                    </div>
+                    <section>
+                        <h5>Departamento</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Cuartos: 3</p>
+                            <p>Metros: 200</p>
+                        </div>
+                        <p class="my-3">¡Desde las alturas todo se ve mejor!</p>
+                        <button class="btn btn-info ">Ver más</button>
+                    </section>
+                </div>
+
+                <div class="propiedad">
+                    <div class="img"
+                        style="background-image: url('https://resizer.glanacion.com/resizer/fhK-tSVag_8UGJjPMgWrspslPoU=/768x0/filters:quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/CUXVMXQE4JD5XIXX4X3PDZAVMY.jpg')">
+                    </div>
+                    <section>
+                        <h5>Mansión</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Cuartos: 5</p>
+                            <p>Metros: 500</p>
+                        </div>
+                        <p class="my-3">Mansión gigante disfruta en familia</p>
+                        <button class="btn btn-info ">Ver más</button>
+                    </section>
+                </div>
+
+
+            <script src="assets/js/propiedades.js"></script>
+</body>
+</html>
