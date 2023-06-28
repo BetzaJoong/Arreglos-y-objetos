@@ -1,4 +1,3 @@
-//_____Arreglo de propiedades_____
 const propiedades = [
     {
         nombre: "Casa de campo",
@@ -44,34 +43,47 @@ const propiedades = [
     }
 ];
 
-function crearTemplatePropiedad(propiedad) {   //Toma un objeto de propiedad como argumento y retorna una cadena de texto que representa el HTML necesario para mostrar esa propiedad en la página.
+function crearTemplatePropiedad(propiedad) {
     return `
     <div class="propiedad">
-        <h3>${propiedad.nombre}</h3>
-        <img src="${propiedad.src}" alt="${propiedad.nombre}">
-        <p>${propiedad.descripcion}</p>
-        <p>Cuartos: ${propiedad.cuartos}</p>
-        <p>Metros cuadrados: ${propiedad.metros}</p>
+        <div class="img" style="background-image: url('${propiedad.src}')"></div>
+        <section>
+            <h5>${propiedad.nombre}</h5>
+            <div class="d-flex justify-content-between">
+                <p>Cuartos: ${propiedad.cuartos}</p>
+                <p>Metros: ${propiedad.metros}</p>
+            </div>
+            <p class="my-3">${propiedad.descripcion}</p>
+            <button class="btn btn-info">Ver más</button>
+        </section>
     </div>
     `;
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const propiedadesDiv = document.querySelector('.propiedades');
+    const totalPropiedadesElement = document.getElementById('totalPropiedades');
 
-//_____Funcionalidad____
-//*-Evento de búsqueda de propiedades-*
+    propiedades.forEach((propiedad) => {
+        const propiedadHTML = crearTemplatePropiedad(propiedad);
+        propiedadesDiv.insertAdjacentHTML('beforeend', propiedadHTML);
+    });
+
+    totalPropiedadesElement.textContent = propiedades.length;
+});
 
 document.getElementById('miBoton').addEventListener('click', buscarPropiedades);
 
 let ultimaCantidadCuartos = null;
 
-function buscarPropiedades() {   //Se recorre el arreglo de propiedades y se evalúan los criterios de búsqueda proporcionados por el usuario.
+function buscarPropiedades() {
     const cantidadCuartosInput = document.getElementById('cantidadCuartosInput');
     const metrosDesdeInput = document.getElementById('metrosDesdeInput');
     const metrosHastaInput = document.getElementById('metrosHastaInput');
 
     if (cantidadCuartosInput.value === '' || metrosDesdeInput.value === '' || metrosHastaInput.value === '') {
         alert('No dejes ningún campo vacío');
-        return; // Salir de la función si los campos están vacíos
+        return;
     }
 
     const cantidadCuartos = parseInt(cantidadCuartosInput.value);
@@ -91,8 +103,9 @@ function buscarPropiedades() {   //Se recorre el arreglo de propiedades y se eva
     const propiedadesDiv = document.querySelectorAll('.propiedades .propiedad');
     let propiedadesVisibles = 0;
     let seEncontroPropiedad = false;
+    let totalPropiedades = propiedades.length; // Número total de propiedades inicialmente
 
-    propiedadesDiv.forEach((propiedadDiv) => {  //Se utiliza un ciclo forEach para recorrer los elementos en el arreglo propiedades y asi poder evaluar los criterios de búsqueda.
+    propiedadesDiv.forEach((propiedadDiv) => {
         const cuartos = parseInt(propiedadDiv.querySelector('.d-flex.justify-content-between p:first-child').textContent.split(':')[1]);
         const metros = parseInt(propiedadDiv.querySelector('.d-flex.justify-content-between p:last-child').textContent.split(':')[1]);
 
@@ -100,31 +113,33 @@ function buscarPropiedades() {   //Se recorre el arreglo de propiedades y se eva
         const cercaMetros = metros >= metrosDesde && metros <= metrosHasta;
 
         const cambioCantidadCuartos = cantidadCuartos !== ultimaCantidadCuartos;
-        const cumpleCuartos = cercaCuartos || (!cambioCantidadCuartos && cuartos === cantidadCuartos);
 
-        if (cumpleCuartos && cercaMetros && !(metros > metrosHasta && cuartos !== cantidadCuartos)) {
-            propiedadDiv.style.display = 'block'; //Hace que la busqueda sea visible en la página.
-            propiedadesVisibles++;
+        if (cercaCuartos && cercaMetros) { //muestra y oculta propiedades
+            propiedadDiv.style.display = 'block';
             seEncontroPropiedad = true;
+            propiedadesVisibles++;
         } else {
-            propiedadDiv.style.display = 'none'; //Hace que la busqueda se oculte en la página.
+            propiedadDiv.style.display = 'none';
+        }
+
+        if (cambioCantidadCuartos) {
+            ultimaCantidadCuartos = cantidadCuartos;
         }
     });
 
-    ultimaCantidadCuartos = cantidadCuartos;
-
-    const totalPropiedadesElement = document.getElementById('totalPropiedades'); //Total de propiedades visibles
-    totalPropiedadesElement.textContent = propiedadesVisibles;
+    totalPropiedades = propiedadesVisibles; // Actualizar el número total de propiedades encontradas
 
     if (!seEncontroPropiedad) {
-        alert('No se encuentra ninguna propiedad que cumpla con los criterios de búsqueda.');
+        alert('No se encontraron propiedades con los criterios seleccionados');
     }
+
+    const totalPropiedadesElement = document.getElementById('totalPropiedades');
+    totalPropiedadesElement.textContent = totalPropiedades; // Actualizar el contenido de "Total" con el valor actualizado
 }
 
-//____Reinicio____
-var resetButton = document.getElementById('resetButton');
+document.getElementById('resetButton').addEventListener('click', reiniciarFiltros);
 
-resetButton.addEventListener('click', function () {
+function reiniciarFiltros() {
     const cantidadCuartosInput = document.getElementById('cantidadCuartosInput');
     const metrosDesdeInput = document.getElementById('metrosDesdeInput');
     const metrosHastaInput = document.getElementById('metrosHastaInput');
@@ -133,6 +148,13 @@ resetButton.addEventListener('click', function () {
     metrosDesdeInput.value = '';
     metrosHastaInput.value = '';
 
-    location.reload(); // Recarga la página
-});
+    const propiedadesDiv = document.querySelectorAll('.propiedades .propiedad');
 
+    propiedadesDiv.forEach((propiedadDiv) => {
+        propiedadDiv.style.display = 'block';
+    });
+
+    const totalPropiedadesElement = document.getElementById('totalPropiedades');
+    totalPropiedadesElement.textContent = propiedades.length;
+    ultimaCantidadCuartos = null;
+}
